@@ -12,6 +12,7 @@ import { useDebounce } from "use-debounce";
 import { Toaster, toast } from "react-hot-toast";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import NoteForm from "../NoteForm/NoteForm";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,7 +78,11 @@ function App() {
 
         <Toaster />
 
-        {modalOpen && <Modal onClose={closeModal} dropPage={dropPage} />}
+        {modalOpen && (
+          <Modal onClose={closeModal}>
+            <NoteForm onClose={closeModal} dropPage={dropPage} />
+          </Modal>
+        )}
       </div>
     </>
   );

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import NoteForm from "../NoteForm/NoteForm";
 import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
   onClose: () => void;
-  dropPage: () => void;
+  // Додаємо пропс children і типізуємо його
+  children: React.ReactNode;
 }
-export default function Modal({ onClose, dropPage }: ModalProps) {
+export default function Modal({ onClose, children }: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -38,7 +38,8 @@ export default function Modal({ onClose, dropPage }: ModalProps) {
       aria-modal="true"
     >
       <div className={css.modal}>
-        <NoteForm onClose={onClose} dropPage={dropPage} />
+        {/* Тут рендериться переданий вміст із пропса children */}
+        {children}
       </div>
     </div>,
     document.body
