@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "modern-normalize";
 import "./index.css";
-import App from "./App/App.tsx";
+import App from "./components/App/App.tsx";
 
 // npm install @tanstack/react-query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
