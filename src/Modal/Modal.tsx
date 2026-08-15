@@ -5,8 +5,9 @@ import { createPortal } from "react-dom";
 
 interface ModalProps {
   onClose: () => void;
+  dropPage: () => void;
 }
-export default function Modal({ onClose }: ModalProps) {
+export default function Modal({ onClose, dropPage }: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -37,7 +38,7 @@ export default function Modal({ onClose }: ModalProps) {
       aria-modal="true"
     >
       <div className={css.modal}>
-        <NoteForm onClose={onClose} />
+        <NoteForm onClose={onClose} dropPage={dropPage} />
       </div>
     </div>,
     document.body

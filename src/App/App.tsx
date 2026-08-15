@@ -8,31 +8,30 @@ import css from "./App.module.css";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Modal from "../Modal/Modal";
 import SearchBox from "../SearchBox/SearchBox";
-import { useDebouncedCallback } from "use-debounce";
+import { useDebounce } from "use-debounce";
 import { Toaster, toast } from "react-hot-toast";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery] = useDebounce(searchQuery, 500);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["notes", searchQuery, currentPage],
+    queryKey: ["notes", debouncedQuery, currentPage],
     queryFn: () =>
-      fetchNotes({ search: searchQuery, page: currentPage, perPage: 12 }),
+      fetchNotes({ search: debouncedQuery, page: currentPage, perPage: 12 }),
     enabled: true,
+    retry: 1,
     placeholderData: keepPreviousData,
   });
 
-  const updateSearchQuery = useDebouncedCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchQuery(e.target.value);
-      setCurrentPage(1);
-    },
-    500
-  );
+  const updateSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
 
   const totalPages = data?.totalPages ?? 0;
 
@@ -49,6 +48,10 @@ function App() {
     setModalOpen(false);
   };
 
+  const dropPage = () => {
+    setCurrentPage(1);
+    setSearchQuery("");
+  };
   return (
     <>
       <div className={css.app}>
@@ -74,7 +77,7 @@ function App() {
 
         <Toaster />
 
-        {modalOpen && <Modal onClose={closeModal} />}
+        {modalOpen && <Modal onClose={closeModal} dropPage={dropPage} />}
       </div>
     </>
   );

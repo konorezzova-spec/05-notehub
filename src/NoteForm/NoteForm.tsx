@@ -35,9 +35,10 @@ const validationSchema = Yup.object().shape({
 
 interface NoteFormProps {
   onClose: () => void;
+  dropPage: () => void;
 }
 
-export default function NoteForm({ onClose }: NoteFormProps) {
+export default function NoteForm({ onClose, dropPage }: NoteFormProps) {
   const fieldId = useId();
   const queryClient = useQueryClient();
 
@@ -45,6 +46,8 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     mutationFn: createNote,
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      onClose();
+      dropPage();
     },
     onError() {
       alert("Error happened!");
