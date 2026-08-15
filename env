@@ -1,0 +1,4 @@
+VITE_NOTEHUB_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtvbm9yZXp6b3ZhQGdtYWlsLmNvbSIsImlhdCI6MTc4NjcwNzAyOX0.ib3s39wofTR8cK8qRXRnNhkBhxGqr0AQSCIc7c9CaTk
+
+
+# const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
