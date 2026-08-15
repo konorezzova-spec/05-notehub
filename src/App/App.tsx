@@ -1,5 +1,5 @@
 //npm install use-debounce
-
+//npm install react-hot-toast
 import { useEffect, useState } from "react";
 import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
