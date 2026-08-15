@@ -56,8 +56,11 @@ export default function NoteForm({ onClose, dropPage }: NoteFormProps) {
     values: NoteFormValues,
     actions: FormikHelpers<NoteFormValues>
   ) => {
-    createMutate(values);
-    actions.resetForm();
+    createMutate(values, {
+      onSuccess: () => {
+        actions.resetForm();
+      },
+    });
   };
 
   return (
@@ -78,7 +81,11 @@ export default function NoteForm({ onClose, dropPage }: NoteFormProps) {
                 name="title"
                 className={css.input}
               />
-              <ErrorMessage name="title" className={css.error} />
+              <ErrorMessage
+                name="title"
+                component="div"
+                className={css.error}
+              />
             </div>
 
             <div className={css.formGroup}>
@@ -90,7 +97,11 @@ export default function NoteForm({ onClose, dropPage }: NoteFormProps) {
                 rows={8}
                 className={css.textarea}
               />
-              <ErrorMessage name="content" className={css.error} />
+              <ErrorMessage
+                name="content"
+                component="div"
+                className={css.error}
+              />
             </div>
 
             <div className={css.formGroup}>
@@ -107,7 +118,7 @@ export default function NoteForm({ onClose, dropPage }: NoteFormProps) {
                 <option value="Meeting">Meeting</option>
                 <option value="Shopping">Shopping</option>
               </Field>
-              <ErrorMessage name="tag" className={css.error} />
+              <ErrorMessage name="tag" component="div" className={css.error} />
             </div>
 
             <div className={css.actions}>
